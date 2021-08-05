@@ -18,7 +18,7 @@ test('renders ONE error message if user enters less then 5 characters into first
   render(<ContactForm />)
   const firstNameInput = screen.getByLabelText(/First Name/i)
   userEvent.type(firstNameInput, 'ABC')
-  const firstNameError = screen.getByTestId('error')
+  const firstNameError = screen.getByText(/Error: firstName/i)
   expect(firstNameError).toBeInTheDocument()
 });
 
@@ -31,7 +31,15 @@ test('renders THREE error messages if user enters no values into any fields.', a
 });
 
 test('renders ONE error message if user enters a valid first name and last name but no email.', async () => {
-    
+  render(<ContactForm />)    
+  const firstNameInput = screen.getByLabelText(/First Name/i)
+  userEvent.type(firstNameInput, 'Kenny')
+  const lastNameInput = screen.getByLabelText(/Last Name/i)
+  userEvent.type(lastNameInput, 'Miesner')
+  const submitButton = screen.getByRole('button')
+  userEvent.click(submitButton)
+  const emailError = screen.getByText(/Error: email/i)
+  expect(emailError).toBeInTheDocument()
 });
 
 test('renders "email must be a valid email address" if an invalid email is entered', async () => {
