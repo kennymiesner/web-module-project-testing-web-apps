@@ -90,6 +90,8 @@ test('renders all fields text when all fields are submitted.', async () => {
   userEvent.type(lastNameInput, 'Miesner')
   const emailInput = screen.getByLabelText(/Email/i)    
   userEvent.type(emailInput, 'kennymiesner@gmail.com')
+  const messageInput = screen.getByLabelText(/Message/i)    
+  userEvent.type(messageInput, 'Hello world!')
   const submitButton = screen.getByRole('button')
   userEvent.click(submitButton)
   const firstName = screen.getByTestId('firstnameDisplay')
@@ -99,5 +101,5 @@ test('renders all fields text when all fields are submitted.', async () => {
   expect(firstName).toBeInTheDocument()
   expect(lastName).toBeInTheDocument()
   expect(email).toBeInTheDocument()
-  expect(message).toBeNull()    
+  expect(message).toBeInTheDocument()
 });
